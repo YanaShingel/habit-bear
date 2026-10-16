@@ -24,6 +24,7 @@ Package manager: npm. Never use yarn/pnpm. Registry is set in `.npmrc` — don't
 - No new dependencies without asking
 - Keep diffs small and scoped to the task. Don't refactor unrelated code
 - Commit after each completed task; message in conventional-commits format
+- Communicate with the user in Russian; code, comments and commit messages stay in English
 
 ## Agent skills
 
