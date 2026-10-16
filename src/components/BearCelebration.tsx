@@ -3,11 +3,18 @@ import type { Celebration } from '../bearPhrases'
 type BearCelebrationProps = {
   // Current phrase, or null when idle
   celebration: Celebration | null
+  // True while the fade-out plays
+  closing: boolean
+  onClose: () => void
 }
 
 // The aria-live region is always mounted so announcements fire reliably.
 // The card is keyed by id so a re-check remounts it and restarts the animation.
-export function BearCelebration({ celebration }: BearCelebrationProps) {
+export function BearCelebration({
+  celebration,
+  closing,
+  onClose,
+}: BearCelebrationProps) {
   return (
     <div
       aria-live="polite"
@@ -16,8 +23,18 @@ export function BearCelebration({ celebration }: BearCelebrationProps) {
       {celebration && (
         <div
           key={celebration.id}
-          className="animate-celebrate flex max-w-xs flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-xl"
+          className={`pointer-events-auto relative flex max-w-xs flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-xl ${
+            closing ? 'animate-celebrate-out' : 'animate-celebrate-in'
+          }`}
         >
+          <button
+            type="button"
+            aria-label="Закрыть"
+            onClick={onClose}
+            className="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-lg leading-none text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+          >
+            ×
+          </button>
           <svg
             viewBox="0 0 64 64"
             className="size-24"

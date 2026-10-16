@@ -5,20 +5,46 @@ import { BearCelebration } from './components/BearCelebration'
 import { HabitList } from './components/HabitList'
 import { useHabits } from './hooks/useHabits'
 
-const CELEBRATION_MS = 2000
+const CELEBRATION_MS = 5000
+// Keep in sync with --animate-celebrate-out duration in index.css
+const CELEBRATION_EXIT_MS = 200
 
 export function App() {
   const { habits, addHabit, toggleToday, deleteHabit } = useHabits()
   const [celebration, setCelebration] = useState<Celebration | null>(null)
+  const [closing, setClosing] = useState(false)
 
+  // Auto-close timer while shown
   useEffect(() => {
-    if (!celebration) return
-    const timer = setTimeout(() => setCelebration(null), CELEBRATION_MS)
+    if (!celebration || closing) return
+    const timer = setTimeout(() => setClosing(true), CELEBRATION_MS)
     return () => clearTimeout(timer)
-  }, [celebration])
+  }, [celebration, closing])
+
+  // Unmount after the fade-out finishes
+  useEffect(() => {
+    if (!closing) return
+    const timer = setTimeout(() => {
+      setCelebration(null)
+      setClosing(false)
+    }, CELEBRATION_EXIT_MS)
+    return () => clearTimeout(timer)
+  }, [closing])
+
+  // Escape closes the active celebration
+  const isActive = celebration !== null
+  useEffect(() => {
+    if (!isActive) return
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setClosing(true)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [isActive])
 
   function handleToggle(id: string) {
     if (toggleToday(id)) {
+      setClosing(false)
       setCelebration({ id: Date.now(), phrase: pickPhrase() })
     }
   }
@@ -32,7 +58,11 @@ export function App() {
         onToggle={handleToggle}
         onDelete={deleteHabit}
       />
-      <BearCelebration celebration={celebration} />
+      <BearCelebration
+        celebration={celebration}
+        closing={closing}
+        onClose={() => setClosing(true)}
+      />
     </main>
   )
 }
