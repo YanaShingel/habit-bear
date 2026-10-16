@@ -24,3 +24,13 @@ Package manager: npm. Never use yarn/pnpm. Registry is set in `.npmrc` — don't
 - No new dependencies without asking
 - Keep diffs small and scoped to the task. Don't refactor unrelated code
 - Commit after each completed task; message in conventional-commits format
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues (via the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` at the repo root, ADRs in `docs/adr/`. See `docs/agents/domain.md`.
