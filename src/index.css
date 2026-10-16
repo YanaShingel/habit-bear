@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+@theme {
+  --animate-celebrate: celebrate 2s ease-in-out both;
+
+  @keyframes celebrate {
+    0% {
+      opacity: 0;
+      transform: scale(0.5) translateY(16px);
+    }
+    12% {
+      opacity: 1;
+      transform: scale(1.05) translateY(0);
+    }
+    18% {
+      transform: scale(1) translateY(0);
+    }
+    80% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.9) translateY(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes celebrate {
+    0% {
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
