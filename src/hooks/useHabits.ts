@@ -12,6 +12,7 @@ export type HabitView = Habit & { streak: number; doneToday: boolean }
 type Action =
   | { type: 'add'; id: string; name: string }
   | { type: 'toggle'; id: string; date: string }
+  | { type: 'delete'; id: string }
 
 // Local-timezone date: toISOString() would give UTC and shift the day
 export const toISO = (d: Date): string =>
@@ -96,6 +97,8 @@ function reducer(habits: Habit[], action: Action): Habit[] {
                 : [...h.completedDates, action.date],
             },
       )
+    case 'delete':
+      return habits.filter((h) => h.id !== action.id)
   }
 }
 
@@ -123,6 +126,10 @@ export function useHabits() {
     return !wasDone
   }
 
+  const deleteHabit = useCallback((id: string) => {
+    dispatch({ type: 'delete', id })
+  }, [])
+
   // Derived per render; a day rollover is picked up on the next interaction
   const current = now()
   const today = toISO(current)
@@ -132,5 +139,5 @@ export function useHabits() {
     doneToday: h.completedDates.includes(today),
   }))
 
-  return { habits: habitViews, addHabit, toggleToday }
+  return { habits: habitViews, addHabit, toggleToday, deleteHabit }
 }

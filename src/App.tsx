@@ -8,7 +8,7 @@ import { useHabits } from './hooks/useHabits'
 const CELEBRATION_MS = 2000
 
 export function App() {
-  const { habits, addHabit, toggleToday } = useHabits()
+  const { habits, addHabit, toggleToday, deleteHabit } = useHabits()
   const [celebration, setCelebration] = useState<Celebration | null>(null)
 
   useEffect(() => {
@@ -27,7 +27,11 @@ export function App() {
     <main className="mx-auto max-w-md space-y-6 px-4 py-8">
       <h1 className="text-center text-3xl font-bold">Habit Bear 🐻</h1>
       <AddHabitForm onAdd={addHabit} />
-      <HabitList habits={habits} onToggle={handleToggle} />
+      <HabitList
+        habits={habits}
+        onToggle={handleToggle}
+        onDelete={deleteHabit}
+      />
       <BearCelebration celebration={celebration} />
     </main>
   )
