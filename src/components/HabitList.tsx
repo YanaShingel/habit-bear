@@ -1,10 +1,12 @@
-import type { Habit } from '../hooks/useHabits'
+import type { HabitView } from '../hooks/useHabits'
+import { HabitItem } from './HabitItem'
 
 type HabitListProps = {
-  habits: Habit[]
+  habits: HabitView[]
+  onToggle: (id: string) => void
 }
 
-export function HabitList({ habits }: HabitListProps) {
+export function HabitList({ habits, onToggle }: HabitListProps) {
   if (habits.length === 0) {
     return (
       <p className="text-center text-gray-500">
@@ -16,12 +18,11 @@ export function HabitList({ habits }: HabitListProps) {
   return (
     <ul className="space-y-2">
       {habits.map((habit) => (
-        <li
+        <HabitItem
           key={habit.id}
-          className="flex items-center rounded border border-gray-300 px-3 py-2"
-        >
-          <span className="truncate">{habit.name}</span>
-        </li>
+          habit={habit}
+          onToggle={() => onToggle(habit.id)}
+        />
       ))}
     </ul>
   )

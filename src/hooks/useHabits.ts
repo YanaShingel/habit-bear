@@ -3,11 +3,44 @@ import { useCallback, useEffect, useReducer } from 'react'
 export type Habit = {
   id: string
   name: string
-  // Local ISO dates 'YYYY-MM-DD'; empty until toggling is implemented
+  // Local ISO dates 'YYYY-MM-DD', no duplicates
   completedDates: string[]
 }
 
-type Action = { type: 'add'; id: string; name: string }
+export type HabitView = Habit & { streak: number; doneToday: boolean }
+
+type Action =
+  | { type: 'add'; id: string; name: string }
+  | { type: 'toggle'; id: string; date: string }
+
+// Local-timezone date: toISOString() would give UTC and shift the day
+export const toISO = (d: Date): string =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
+// The only impure helpers: they read the clock
+export const now = (): Date => new Date()
+
+export const todayISO = (): string => toISO(now())
+
+// Pure: local date n days before `from`
+export const daysAgoISO = (from: Date, n: number): string =>
+  toISO(new Date(from.getFullYear(), from.getMonth(), from.getDate() - n))
+
+// Pure: consecutive days ending `today` (or the day before if `today` is not done)
+export function computeStreak(completedDates: string[], today: Date): number {
+  const dates = new Set(completedDates)
+  let offset: number
+  if (dates.has(daysAgoISO(today, 0))) offset = 0
+  else if (dates.has(daysAgoISO(today, 1))) offset = 1
+  else return 0
+
+  let streak = 0
+  while (dates.has(daysAgoISO(today, offset))) {
+    streak++
+    offset++
+  }
+  return streak
+}
 
 const STORAGE_KEY = 'habit-bear:v1'
 
@@ -52,6 +85,17 @@ function reducer(habits: Habit[], action: Action): Habit[] {
         ...habits,
         { id: action.id, name: action.name, completedDates: [] },
       ]
+    case 'toggle':
+      return habits.map((h) =>
+        h.id !== action.id
+          ? h
+          : {
+              ...h,
+              completedDates: h.completedDates.includes(action.date)
+                ? h.completedDates.filter((d) => d !== action.date)
+                : [...h.completedDates, action.date],
+            },
+      )
   }
 }
 
@@ -69,5 +113,24 @@ export function useHabits() {
     dispatch({ type: 'add', id: crypto.randomUUID(), name: trimmed })
   }, [])
 
-  return { habits, addHabit }
+  // Returns true iff the habit became checked
+  const toggleToday = (id: string): boolean => {
+    const date = todayISO()
+    const habit = habits.find((h) => h.id === id)
+    if (!habit) return false
+    const wasDone = habit.completedDates.includes(date)
+    dispatch({ type: 'toggle', id, date })
+    return !wasDone
+  }
+
+  // Derived per render; a day rollover is picked up on the next interaction
+  const current = now()
+  const today = toISO(current)
+  const habitViews: HabitView[] = habits.map((h) => ({
+    ...h,
+    streak: computeStreak(h.completedDates, current),
+    doneToday: h.completedDates.includes(today),
+  }))
+
+  return { habits: habitViews, addHabit, toggleToday }
 }
