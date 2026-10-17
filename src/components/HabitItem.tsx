@@ -30,7 +30,7 @@ export function HabitItem({ habit, onToggle, onDelete }: HabitItemProps) {
           type="checkbox"
           checked={habit.doneToday}
           onChange={onToggle}
-          className="size-6 shrink-0 cursor-pointer appearance-none rounded-md border-2 border-honey bg-paper checked:motion-safe:animate-check-pop checked:border-moss checked:bg-moss focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-honey"
+          className="size-6 shrink-0 cursor-pointer appearance-none rounded-md border-2 border-moss bg-transparent bg-center bg-no-repeat checked:bg-checkmark checked:motion-safe:animate-check-pop focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         />
         <span className="min-w-0 flex-1 truncate">{habit.name}</span>
       </label>
@@ -47,7 +47,7 @@ export function HabitItem({ habit, onToggle, onDelete }: HabitItemProps) {
             : `Удалить «${habit.name}»`
         }
         onClick={handleDeleteClick}
-        className={`shrink-0 rounded-control border px-3 py-1 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-honey ${
+        className={`shrink-0 rounded-control border px-3 py-1 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink ${
           confirming
             ? 'border-honey bg-honey font-bold text-ink'
             : 'border-transparent text-muted hover:border-muted hover:text-ink'

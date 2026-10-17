@@ -31,7 +31,7 @@ export function BearCelebration({
             type="button"
             aria-label="Закрыть"
             onClick={onClose}
-            className="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-lg leading-none text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-honey"
+            className="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-lg leading-none text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-ink"
           >
             ×
           </button>

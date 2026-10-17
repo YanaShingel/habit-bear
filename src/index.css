@@ -17,6 +17,9 @@
   /* The only shadow in the UI: the bear card */
   --shadow-bear: 0 8px 24px rgb(43 36 32 / 0.14);
 
+  /* Moss (#6b8f5e) checkmark; hex is inlined because CSS vars don't resolve in data URIs */
+  --background-image-checkmark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b8f5e' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
+
   --animate-check-pop: check-pop 150ms ease-out;
   --animate-celebrate-in: celebrate-in 0.45s ease-out both;
   --animate-celebrate-out: celebrate-out 200ms ease-in forwards;

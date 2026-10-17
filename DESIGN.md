@@ -23,7 +23,7 @@ The bear is a sarcastic but kind friend. Nothing corporate, no gradients, no gla
 - Spacing scale: 4 / 8 / 12 / 16 / 24 / 32
 
 ## Components
-- Habit row: card on paper, checkbox custom-styled (honey border → moss fill when checked)
+- Habit row: card on paper, checkbox custom-styled: moss border, no fill; checked = moss checkmark glyph on light background (data-URI SVG background-image)
 - Streak badge: honey pill, "🔥 N"
 - Delete: ghost button, turns honey on "Точно?"
 - Bear card: paper, soft shadow, bear SVG left, phrase right, "×" top-right

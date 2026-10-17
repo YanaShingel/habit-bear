@@ -10,9 +10,22 @@ type HabitListProps = {
 export function HabitList({ habits, onToggle, onDelete }: HabitListProps) {
   if (habits.length === 0) {
     return (
-      <p className="text-center text-muted">
-        Пока нет привычек — добавьте первую
-      </p>
+      <div className="flex flex-col items-center gap-2 text-center text-muted">
+        <svg
+          viewBox="0 0 64 64"
+          className="size-12 fill-none stroke-muted"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="14" cy="16" r="9" />
+          <circle cx="50" cy="16" r="9" />
+          <circle cx="32" cy="34" r="24" />
+          <ellipse cx="32" cy="42" rx="11" ry="8.5" />
+        </svg>
+        <p>Пока нет привычек — добавьте первую</p>
+      </div>
     )
   }
 
