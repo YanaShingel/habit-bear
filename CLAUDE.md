@@ -32,6 +32,10 @@ Package manager: npm. Never use yarn/pnpm. Registry is set in `.npmrc` — don't
 
 Issues are tracked in GitHub Issues (via the `gh` CLI). See `docs/agents/issue-tracker.md`.
 
+### Browser acceptance
+
+Checking the app in a real browser (Playwright MCP): see `docs/agents/acceptance.md` — UI timer windows are shorter than tool-call round-trips.
+
 ### Domain docs
 
 Single-context: `GLOSSARY.md` at the repo root, ADRs in `docs/adr/`. See `docs/agents/domain.md`.
