@@ -23,7 +23,7 @@ export function BearCelebration({
       {celebration && (
         <div
           key={celebration.id}
-          className={`pointer-events-auto relative flex max-w-xs flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-xl ${
+          className={`pointer-events-auto relative flex max-w-sm items-center gap-4 rounded-card border border-muted bg-paper p-6 pr-10 shadow-bear ${
             closing ? 'animate-celebrate-out' : 'animate-celebrate-in'
           }`}
         >
@@ -31,33 +31,32 @@ export function BearCelebration({
             type="button"
             aria-label="Закрыть"
             onClick={onClose}
-            className="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-lg leading-none text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+            className="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-lg leading-none text-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-honey"
           >
             ×
           </button>
           <svg
             viewBox="0 0 64 64"
-            className="size-24"
+            className="size-20 shrink-0"
             aria-hidden="true"
           >
-            <circle cx="14" cy="16" r="9" fill="#8b5a2b" />
-            <circle cx="50" cy="16" r="9" fill="#8b5a2b" />
-            <circle cx="14" cy="16" r="4.5" fill="#d9a066" />
-            <circle cx="50" cy="16" r="4.5" fill="#d9a066" />
-            <circle cx="32" cy="34" r="24" fill="#8b5a2b" />
-            <ellipse cx="32" cy="42" rx="11" ry="8.5" fill="#d9a066" />
-            <circle cx="23" cy="29" r="2.5" fill="#222" />
-            <circle cx="41" cy="29" r="2.5" fill="#222" />
-            <ellipse cx="32" cy="38" rx="3.5" ry="2.5" fill="#222" />
+            <circle cx="14" cy="16" r="9" className="fill-bear-fur" />
+            <circle cx="50" cy="16" r="9" className="fill-bear-fur" />
+            <circle cx="14" cy="16" r="4.5" className="fill-bear-snout" />
+            <circle cx="50" cy="16" r="4.5" className="fill-bear-snout" />
+            <circle cx="32" cy="34" r="24" className="fill-bear-fur" />
+            <ellipse cx="32" cy="42" rx="11" ry="8.5" className="fill-bear-snout" />
+            <circle cx="23" cy="29" r="2.5" className="fill-ink" />
+            <circle cx="41" cy="29" r="2.5" className="fill-ink" />
+            <ellipse cx="32" cy="38" rx="3.5" ry="2.5" className="fill-ink" />
             <path
               d="M27 44 Q32 48 37 44"
-              fill="none"
-              stroke="#222"
+              className="fill-none stroke-ink"
               strokeWidth="1.5"
               strokeLinecap="round"
             />
           </svg>
-          <p className="text-lg font-semibold">{celebration.phrase}</p>
+          <p className="text-lg font-semibold italic">{celebration.phrase}</p>
         </div>
       )}
     </div>

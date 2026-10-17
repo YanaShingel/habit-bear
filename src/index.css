@@ -1,8 +1,37 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #fbf6ee;
+  --color-ink: #2b2420;
+  --color-muted: #9c8e80;
+  --color-honey: #e9a23b;
+  --color-moss: #6b8f5e;
+  --color-bear-fur: #8b5e3c;
+  --color-bear-snout: #e8c9a6;
+
+  --radius-card: 16px;
+  --radius-control: 10px;
+
+  /* The only shadow in the UI: the bear card */
+  --shadow-bear: 0 8px 24px rgb(43 36 32 / 0.14);
+
+  --animate-check-pop: check-pop 150ms ease-out;
   --animate-celebrate-in: celebrate-in 0.45s ease-out both;
   --animate-celebrate-out: celebrate-out 200ms ease-in forwards;
+
+  @keyframes check-pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 
   @keyframes celebrate-in {
     0% {
@@ -26,6 +55,18 @@
     to {
       opacity: 0;
     }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-paper font-sans text-base leading-[1.6] text-ink;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-bold;
   }
 }
 

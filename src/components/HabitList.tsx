@@ -10,7 +10,7 @@ type HabitListProps = {
 export function HabitList({ habits, onToggle, onDelete }: HabitListProps) {
   if (habits.length === 0) {
     return (
-      <p className="text-center text-gray-500">
+      <p className="text-center text-muted">
         Пока нет привычек — добавьте первую
       </p>
     )
